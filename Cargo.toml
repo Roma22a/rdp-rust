@@ -1,9 +1,12 @@
 [package]
 name = "rdp-rust"
 version = "0.1.0"
-authors = ["Roma22a <roma22auser@gmail.com>"]
+authors = ["Roma22a"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "A Simple Ramer–Douglas–Peucker Implematation"
+repository = "https://github.com/Roma22a/rdp-rust"
+keywords = ["ramer–douglas–peucker", "simplification", "polygon", "polyline"]
+license = "MIT"
 
 [dependencies]
