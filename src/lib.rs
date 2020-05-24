@@ -23,7 +23,7 @@ pub fn perpendicular_distance(
     }
 }
 
-pub fn rdp(points: &[[f64; 2]], tolerance: &f64) -> Vec<[f64; 2]> {
+pub fn rdp(points: &Vec<[f64; 2]>, tolerance: &f64) -> Vec<[f64; 2]> {
     let mut dmax: f64 = 0.0;
     let mut index: usize = 0;
     for i in 0..points.len() - 1 {
@@ -40,9 +40,9 @@ pub fn rdp(points: &[[f64; 2]], tolerance: &f64) -> Vec<[f64; 2]> {
     }
 
     if dmax > *tolerance {
-        let mut intermediate = rdp(&points[..index + 1], &*tolerance);
+        let mut intermediate = rdp(&points[..index + 1].to_vec(), &*tolerance);
         intermediate.pop();
-        intermediate.extend_from_slice(&rdp(&points[index..], &*tolerance));
+        intermediate.extend_from_slice(&rdp(&points[index..].to_vec(), &*tolerance));
         intermediate
     } else {
         vec![*points.first().unwrap(), *points.last().unwrap()]
