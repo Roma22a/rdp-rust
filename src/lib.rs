@@ -26,7 +26,7 @@ pub fn perpendicular_distance(
 pub fn rdp(points: &[[f64; 2]], tolerance: &f64) -> Vec<[f64; 2]> {
     let mut dmax: f64 = 0.0;
     let mut index: usize = 0;
-    for (i, _) in points.iter().enumerate().take(points.len() - 1).skip(1) {
+    for i in 0..points.len() - 1 {
         let distance = perpendicular_distance(
             &points[i], 
             &*points.first().unwrap(), 
