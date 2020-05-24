@@ -50,9 +50,19 @@ pub fn rdp(points: &Vec<[f64; 2]>, tolerance: &f64) -> Vec<[f64; 2]> {
     
 }
 
+pub fn enchantment_rdp(linestrings: &[Vec<[f64; 2]>], tolerance: &f64) -> Vec<Vec<[f64; 2]>> {
+    let mut results: Vec<_> = Vec::new();
+    for linestring in linestrings {
+        let intermediate = rdp(linestring, tolerance);
+        results.push(intermediate);
+    }
+
+    results
+}
+
 #[cfg(test)]
 mod tests {
-    use super::{rdp, hypotenuse, perpendicular_distance};
+    use super::{rdp, hypotenuse, perpendicular_distance, enchantment_rdp};
     #[test]
     fn test_distance() {
         let start = [0.0, 0.0];
@@ -72,6 +82,13 @@ mod tests {
         let points = vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [17.3, 3.2], [27.8, 0.1]];
         let foo: Vec<_> = rdp(&points, &1.0);
         assert_eq!(foo, vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [27.8, 0.1]]);
+    }
+    #[test]
+    fn test_enchantment_rdp() {
+        let linestrings = vec![vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [17.3, 3.2], [27.8, 0.1]], 
+                                                   vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [17.3, 3.2], [27.8, 0.1]]];
+        let foo: Vec<_> = enchantment_rdp(&linestrings, &1.0);
+        assert_eq!(foo, vec![vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [27.8, 0.1]], vec![[0.0, 0.0], [5.0, 4.0], [11.0, 5.5], [27.8, 0.1]]]);
     }
     #[test]
     fn test_array_conversion() {
